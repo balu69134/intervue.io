@@ -1,0 +1,63 @@
+package intervio;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+public class intervio {
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver driver=new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		driver.get("https://www.intervue.io/");
+		
+		driver.manage().window().maximize();
+		// click on login button
+		
+		String parentWindowHandle=driver.getWindowHandle();
+		System.out.println("parentWindowHandle "+parentWindowHandle);
+		driver.findElement(By.xpath("//div[@id='iv-homepage-login']//div//span[contains(text(),'Login')]")).click();
+		Thread.sleep(3000);
+		
+		System.out.println(driver.getTitle());
+		for(String childTab:driver.getWindowHandles())
+		{
+			driver.switchTo().window(childTab);
+		}
+		
+		Thread.sleep(3000);
+		System.out.println(driver.getTitle());
+		//click on the for companies login button
+		
+		driver.findElement(By.xpath("//a[@href='/login']//div[@class='AccessAccount-ColoredButton-Text'][normalize-space()='Login']")).click();
+		
+		driver.findElement(By.xpath("//input[@name='email']")).sendKeys("neha@intervue.io");
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("Ps@neha@123");
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//span[@class='search_placeholder']")).click();
+		Thread.sleep(3000);	
+		driver.findElement(By.xpath("//input[@placeholder='Type what you want to search for']")).sendKeys("Hellow");
+		
+	    // click on the x icon on the "Type what you want to search screen"
+		driver.findElement(By.xpath("//button[@class='style__CrossIconWrap-pqpu-12 bDAlvK']//i[@class='anticon']//*[name()='svg']")).click();
+		
+		// Click on drop drown 
+      WebElement cliProfile= driver.findElement(By.xpath("//div[@class='ant-dropdown-link ProfileHeader__StyedDropdownHoverLink-sc-1gwp6c1-3 cwhrSp']"));
+       cliProfile.click();
+
+Thread.sleep(3000);
+// Click on logout button
+driver.findElement(By.xpath("//a[text()='Logout']")).click();
+
+
+	}
+	
+
+
+	}
